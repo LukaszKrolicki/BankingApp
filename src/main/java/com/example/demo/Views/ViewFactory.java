@@ -55,4 +55,8 @@ public class ViewFactory {
         stage.setTitle("Kroli Bank");
         stage.show();
     }
+
+    public void closeStage(Stage stage){
+        stage.close();
+    }
 }

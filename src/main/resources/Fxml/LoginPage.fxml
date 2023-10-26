@@ -11,11 +11,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.Controllers.LoginController">
    <children>
       <VBox prefHeight="400.0" prefWidth="230.0" styleClass="login_logo_container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <FontAwesomeIcon fill="#fffda2"  selectionFill="#974c4c" size="30" glyphName="BANK" />
+            <graphic>
+               <FontAwesomeIconView glyphName="BANK" />
+            </graphic>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="KroliBank" />
          </children>
       </VBox>

@@ -1,5 +1,6 @@
 package com.example.demo.Controllers.Client;
 
+import com.example.demo.Models.Model;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
@@ -16,6 +17,16 @@ public class ClientMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        addListeners();
     }
+
+    private void addListeners(){
+        dashboard_btn.setOnAction(e->onMenuClick("dashboard"));
+        transaction_btn.setOnAction(e->onMenuClick("Transactions"));
+    }
+
+    private void onMenuClick(String setName){
+        Model.getInstance().getViewFactory().getClientSelectedMenuItem().set(setName);
+    }
+
 }

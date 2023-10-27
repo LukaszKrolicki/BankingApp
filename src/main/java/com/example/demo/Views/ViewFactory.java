@@ -29,6 +29,8 @@ public class ViewFactory {
 
     private AnchorPane createClientssView;
 
+    private AnchorPane depositView;
+
     private final ObjectProperty<AdminMenuOptions> adminSelectedMenuItem;
 
     public ViewFactory(){
@@ -139,6 +141,19 @@ public class ViewFactory {
 
         }
         return createClientssView;
+    }
+
+    public AnchorPane getDepositView() {
+        if(depositView == null){
+            try{
+                depositView =new FXMLLoader(getClass().getResource("/Fxml/Admin/Deposit.fxml")).load();
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+
+        }
+        return depositView;
     }
 
     private static void createStage(FXMLLoader loader) {

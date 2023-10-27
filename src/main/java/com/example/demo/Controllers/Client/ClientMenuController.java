@@ -1,6 +1,7 @@
 package com.example.demo.Controllers.Client;
 
 import com.example.demo.Models.Model;
+import com.example.demo.Views.ClientMenuOptions;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,13 +25,13 @@ public class ClientMenuController implements Initializable {
     }
 
     private void addListeners(){
-        dashboard_btn.setOnAction(e->onMenuClick("dashboard"));
-        transaction_btn.setOnAction(e->onMenuClick("Transactions"));
-        accounts_btn.setOnAction(e->onMenuClick("Accounts"));
+        dashboard_btn.setOnAction(e->onMenuClick(ClientMenuOptions.DASHBOARD));
+        transaction_btn.setOnAction(e->onMenuClick(ClientMenuOptions.TRANSACTIONS));
+        accounts_btn.setOnAction(e->onMenuClick(ClientMenuOptions.ACCOUNTS));
     }
 
-    private void onMenuClick(String setName){
-        Model.getInstance().getViewFactory().getClientSelectedMenuItem().set(setName);
+    private void onMenuClick(Enum setName){
+        Model.getInstance().getViewFactory().getClientSelectedMenuItem().set((ClientMenuOptions) setName);
     }
 
 }

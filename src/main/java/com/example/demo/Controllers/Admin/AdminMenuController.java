@@ -1,5 +1,8 @@
 package com.example.demo.Controllers.Admin;
 
+import com.example.demo.Models.Model;
+import com.example.demo.Views.AdminMenuOptions;
+import com.example.demo.Views.ClientMenuOptions;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
@@ -14,6 +17,15 @@ public class AdminMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        addListeners();
+    }
 
+    private void addListeners(){
+        clients_btn.setOnAction(e->onMenuClick(AdminMenuOptions.CLIENTS));
+        deposit_btn.setOnAction(e->onMenuClick(AdminMenuOptions.DEPOSIT));
+    }
+
+    private void onMenuClick(Enum setName){
+        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set((ClientMenuOptions) setName);
     }
 }

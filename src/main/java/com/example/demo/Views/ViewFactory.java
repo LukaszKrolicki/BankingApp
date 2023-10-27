@@ -13,6 +13,8 @@ public class ViewFactory {
     private AnchorPane dashboardView;
     private AnchorPane transactionsView;
 
+    private AnchorPane accountsView;
+
     private final StringProperty clientSelectedMenuItem;
 
     public ViewFactory(){
@@ -28,6 +30,7 @@ public class ViewFactory {
         return clientSelectedMenuItem;
     }
 
+    //ClientViews Section
     public AnchorPane getDashboardView(){
         if(dashboardView == null){
             try{
@@ -52,6 +55,19 @@ public class ViewFactory {
 
         }
         return transactionsView;
+    }
+
+    public AnchorPane getAccountsViewView() {
+        if(accountsView == null){
+            try{
+                accountsView= new FXMLLoader(getClass().getResource("/Fxml/Client/Accounts.fxml")).load();
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+
+        }
+        return accountsView;
     }
 
     public void showLoginWindow(){

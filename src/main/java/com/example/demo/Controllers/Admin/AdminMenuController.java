@@ -26,6 +26,6 @@ public class AdminMenuController implements Initializable {
     }
 
     private void onMenuClick(Enum setName){
-        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set((ClientMenuOptions) setName);
+        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set((AdminMenuOptions) setName);
     }
 }

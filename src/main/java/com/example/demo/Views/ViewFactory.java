@@ -1,5 +1,7 @@
 package com.example.demo.Views;
 
+import com.example.demo.Controllers.Admin.AdminController;
+import com.example.demo.Controllers.Admin.AdminMenuController;
 import com.example.demo.Controllers.Client.ClientController;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -25,7 +27,9 @@ public class ViewFactory {
     //Admin Views
     private AnchorPane createClientView;
 
-    private final ObjectProperty<ClientMenuOptions> adminSelectedMenuItem;
+    private AnchorPane createClientssView;
+
+    private final ObjectProperty<AdminMenuOptions> adminSelectedMenuItem;
 
     public ViewFactory(){
         this.loginAccountType = AccountType.CLIENT;
@@ -96,7 +100,7 @@ public class ViewFactory {
 
 
     //Admin Views
-    public ObjectProperty<ClientMenuOptions> getAdminSelectedMenuItem() {
+    public ObjectProperty<AdminMenuOptions> getAdminSelectedMenuItem() {
         return adminSelectedMenuItem;
     }
     public void showLoginWindow(){
@@ -106,15 +110,15 @@ public class ViewFactory {
 
     public void showAdminWindow(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/Admin.fxml"));
-        ClientController adminController = new ClientController();
+        AdminController adminController = new AdminController();
         loader.setController(adminController);
         createStage(loader);
     }
 
     public AnchorPane getCreateClientView() {
-        if(createClientView == null){
+        if(createClientView== null){
             try{
-                createClientView= new FXMLLoader(getClass().getResource("/Fxml/Client/CreateNewClient.fxml")).load();
+                createClientView= new FXMLLoader(getClass().getResource("/Fxml/Admin/CreateNewClient.fxml")).load();
             }
             catch(Exception e){
                 e.printStackTrace();
@@ -122,6 +126,19 @@ public class ViewFactory {
 
         }
         return createClientView;
+    }
+
+    public AnchorPane getClientssView() {
+        if(createClientssView == null){
+            try{
+                createClientssView =new FXMLLoader(getClass().getResource("/Fxml/Admin/Clients.fxml")).load();
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+
+        }
+        return createClientssView;
     }
 
     private static void createStage(FXMLLoader loader) {

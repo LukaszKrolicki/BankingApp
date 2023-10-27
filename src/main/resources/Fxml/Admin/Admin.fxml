@@ -7,15 +7,14 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-fx:id="adminParent">
+            xmlns:fx="http://javafx.com/fxml" fx:id= "adminParent">
     
     <left>
         <fx:include source="AdminMenu.fxml"/>
     </left>
     
-    <right>
+    <center>
         <fx:include source="CreateNewClient.fxml"/>
-    </right>
+    </center>
 
 </BorderPane>

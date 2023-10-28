@@ -46,6 +46,9 @@ public class Model {
         return viewFactory;
     }
 
+    public DatabaseDriver getDatabaseDriver() {
+        return databaseDriver;
+    }
 
     //Client method section
     public boolean getClientLoginSuccessFlag(){

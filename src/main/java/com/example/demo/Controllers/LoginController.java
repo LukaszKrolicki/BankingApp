@@ -25,7 +25,7 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         acc_selector.setItems(FXCollections.observableArrayList(AccountType.CLIENT,AccountType.ADMIN));
         acc_selector.setValue(Model.getInstance().getViewFactory().getLoginAccountType());
-        acc_selector.valueProperty().addListener(observable -> Model.getInstance().getViewFactory().setLoginAccountType(acc_selector.getValue()));
+        acc_selector.valueProperty().addListener(observable -> setAcc_selector());
         login_btn.setOnAction(e-> onLogin());
     }
 
@@ -44,7 +44,25 @@ public class LoginController implements Initializable {
             }
         }
         else{
-            Model.getInstance().getViewFactory().showAdminWindow();
+            Model.getInstance().evaluateAdminCre(payee_address_field.getText(), password_fid.getText());
+            if(Model.getInstance().getAdminLoginSuccessFlag()){
+                Model.getInstance().getViewFactory().showAdminWindow();
+                Model.getInstance().getViewFactory().closeStage(stage);
+            }
+            else{
+                error_lbl.setText("Wrong credentials");
+            }
+
+        }
+    }
+
+    private void setAcc_selector(){
+        Model.getInstance().getViewFactory().setLoginAccountType(acc_selector.getValue());
+        if(acc_selector.getValue()==AccountType.ADMIN){
+            payee_address_label.setText("Username:");
+        }
+        else{
+            payee_address_label.setText("Payee Address: ");
         }
     }
 }

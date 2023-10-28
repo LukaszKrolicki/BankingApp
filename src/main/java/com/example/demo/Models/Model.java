@@ -11,13 +11,14 @@ public class Model {
     private final ViewFactory viewFactory;
 
     private final DatabaseDriver databaseDriver;
-    private AccountType loginAccountType=AccountType.CLIENT;
 
     //Client data section
     private Client client;
     private boolean clientLoginSuccessFlag;
 
     //Admin Data section
+
+    private boolean adminLoginSuccessFlag;
 
     private Model() {
 
@@ -30,6 +31,7 @@ public class Model {
 
 
         //Admin data section
+        this.adminLoginSuccessFlag=false;
     }
 
     public static synchronized Model getInstance(){
@@ -42,14 +44,6 @@ public class Model {
 
     public ViewFactory getViewFactory(){
         return viewFactory;
-    }
-
-    public AccountType getLoginAccountType(){
-        return loginAccountType;
-    }
-
-    public void setLoginAccountType(AccountType loginAccountType){
-        this.loginAccountType = loginAccountType;
     }
 
 
@@ -83,6 +77,26 @@ public class Model {
                 this.clientLoginSuccessFlag = true;
             }
 
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //Admin method section
+    public boolean getAdminLoginSuccessFlag(){
+        return this.adminLoginSuccessFlag;
+    }
+
+    public void setAdminLoginSuccessFlag(boolean adminLoginSuccessFlag){
+        this.adminLoginSuccessFlag=adminLoginSuccessFlag;
+    }
+
+    public void evaluateAdminCre(String username, String password){
+        ResultSet resultSet = databaseDriver.getAdminData(username, password);
+        try{
+            if(resultSet.isBeforeFirst()){
+                this.adminLoginSuccessFlag=true;
+            }
         }catch (Exception e){
             e.printStackTrace();
         }

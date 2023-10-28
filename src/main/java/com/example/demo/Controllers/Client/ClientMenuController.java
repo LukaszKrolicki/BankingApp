@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,10 +29,21 @@ public class ClientMenuController implements Initializable {
         dashboard_btn.setOnAction(e->onMenuClick(ClientMenuOptions.DASHBOARD));
         transaction_btn.setOnAction(e->onMenuClick(ClientMenuOptions.TRANSACTIONS));
         accounts_btn.setOnAction(e->onMenuClick(ClientMenuOptions.ACCOUNTS));
+        logout_btn.setOnAction(e->onLogout());
     }
 
     private void onMenuClick(Enum setName){
         Model.getInstance().getViewFactory().getClientSelectedMenuItem().set((ClientMenuOptions) setName);
+    }
+
+    private void onLogout(){
+        Stage stage = (Stage) dashboard_btn.getScene().getWindow();
+        Model.getInstance().getViewFactory().closeStage(stage);
+        Model.getInstance().getViewFactory().showLoginWindow();
+
+        //setting flags
+        Model.getInstance().setClientLoginSuccessFlag(false);
+
     }
 
 }

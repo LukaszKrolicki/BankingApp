@@ -31,10 +31,17 @@ public class LoginController implements Initializable {
 
     private void onLogin(){
         Stage stage = (Stage)error_lbl.getScene().getWindow();
-        Model.getInstance().getViewFactory().closeStage(stage);
 
         if(Model.getInstance().getViewFactory().getLoginAccountType() == AccountType.CLIENT){
-            Model.getInstance().getViewFactory().showClientWindow();
+            //Model.getInstance().getViewFactory().showClientWindow();
+            Model.getInstance().evaluateClientCred(payee_address_field.getText(), password_fid.getText());
+            if(Model.getInstance().getClientLoginSuccessFlag()){
+                Model.getInstance().getViewFactory().showClientWindow();
+                Model.getInstance().getViewFactory().closeStage(stage);
+            }
+            else{
+                error_lbl.setText("Wrong credentials");
+            }
         }
         else{
             Model.getInstance().getViewFactory().showAdminWindow();

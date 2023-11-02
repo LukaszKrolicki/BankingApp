@@ -1,5 +1,7 @@
 package com.example.demo.Models;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 
 import java.sql.*;
@@ -161,4 +163,30 @@ public class DatabaseDriver {
         }
         return resultSet;
     }
+
+    public ResultSet searchClient(String pAddress){
+        Statement statement;
+        ResultSet resultSet = null;
+        try{
+            statement=this.conn.createStatement();
+            resultSet = statement.executeQuery("Select * FROM Clients WHERE PayeeAddress='"+pAddress+"';");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return resultSet;
+    }
+
+    public void depositSavings(String pAddress, double amount){
+        Statement statement;
+        try {
+            statement = this.conn.createStatement();
+            statement.executeUpdate("UPDATE SavingsAccounts SET Balance = '"+amount+"' WHERE Address='"+pAddress+"';");
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+    }
+
 }

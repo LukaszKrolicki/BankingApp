@@ -34,7 +34,7 @@ public class Client {
         return lastName;
     }
 
-    public StringProperty payeeAdressProperty() {
+    public String payeeAdressProperty() {
         return payeeAdress;
     }
 

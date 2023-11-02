@@ -20,11 +20,17 @@ public class ClientCellControler implements Initializable {
     private final Client client;
 
     public ClientCellControler(Client client){
+
         this.client=client;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        fName_lbl.textProperty().bind(client.firstNameProperty());
+        lName_lbl.textProperty().bind(client.lastNameProperty());
+        pAddress_lbl.textProperty().bind(client.payeeAdressProperty());
+        ch_acc_lbl.textProperty().bind(client.checkingAccountProperty().asString());
+        sv_acc_lbl.textProperty().bind(client.savingsAccountProperty().asString());
+        date_lbl.textProperty().bind(client.dateCreatedProperty().asString());
     }
 }

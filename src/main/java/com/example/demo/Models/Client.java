@@ -34,7 +34,7 @@ public class Client {
         return lastName;
     }
 
-    public StringProperty payeeAdressProperty(String payeeAddress) {
+    public StringProperty payeeAdressProperty() {
         return payeeAdress;
     }
 
@@ -48,5 +48,9 @@ public class Client {
 
     public ObjectProperty<LocalDate> dateCreatedProperty() {
         return dateCreated;
+    }
+
+    public void setPayeeAdress(String payeeAdress) {
+        this.payeeAdress.set(payeeAdress);
     }
 }

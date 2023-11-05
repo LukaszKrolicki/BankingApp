@@ -1,6 +1,7 @@
 package com.example.demo.Controllers.Client;
 
 import com.example.demo.Models.Model;
+import com.example.demo.Models.Transaction;
 import com.example.demo.Views.TransactionCellFactory;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.Initializable;
@@ -37,6 +38,7 @@ public class DashboardController implements Initializable {
         transaction_listview.setItems(Model.getInstance().getLatestTransactions());
         transaction_listview.setCellFactory(e->new TransactionCellFactory());
         send_money_btn.setOnAction(e->onSendMoney());
+        accountSummary();
     }
 
     private void bindData(){
@@ -80,4 +82,23 @@ public class DashboardController implements Initializable {
         amount_fld.setText("");
     }
 
+    private void accountSummary(){
+        double income =0;
+        double expenses = 0;
+        if(Model.getInstance().getAllTransactions().isEmpty()){
+            Model.getInstance().setAllTransactions();
+            for(Transaction transaction: Model.getInstance().getAllTransactions()){
+                if(transaction.senderProperty().get().equals(Model.getInstance().getClient().payeeAdressProperty().get())){
+                    expenses = expenses+transaction.amountProperty().get();
+                }
+                else{
+                    income = income + transaction.amountProperty().get();
+                }
+            }
+
+            income_lbl.setText("$" + income);
+            expense_lbl.setText("$" + expenses);
+
+        }
+    }
 }

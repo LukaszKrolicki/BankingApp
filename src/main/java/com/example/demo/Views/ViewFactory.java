@@ -8,9 +8,14 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ViewFactory {
@@ -172,6 +177,23 @@ public class ViewFactory {
         stage.getIcons().add(new Image(String.valueOf(ViewFactory.class.getResource("/Images/5223830.png"))));
         stage.setResizable(false);
         stage.setTitle("Kroli Bank");
+        stage.show();
+    }
+
+    public void showMessageWindow(String senderString, String messageText){
+        StackPane pane = new StackPane();
+        VBox vBox = new VBox(5);
+        vBox.setAlignment(Pos.CENTER);
+        Label sender= new Label(senderString);
+        Label message = new Label(messageText);
+        vBox.getChildren().addAll(sender,message);
+        pane.getChildren().add(vBox);
+        Scene scene = new Scene(pane, 300,100);
+        Stage stage = new Stage();
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL);//it closes when click elsewhere
+        stage.setTitle("Message");
+        stage.setScene(scene);
         stage.show();
     }
 

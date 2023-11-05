@@ -115,6 +115,63 @@ public class DatabaseDriver {
         return resultSet;
     }
 
+    public double getSavingsAccountBalance(String pAddress){
+        Statement statement;
+        ResultSet resultSet;
+        double balance=0;
+
+        try{
+            statement = this.conn.createStatement();
+            resultSet = statement.executeQuery("Select * FROM SavingsAccounts WHERE Owner='"+pAddress+"';");
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return balance;
+    }
+    public void updateBalance(String pAddress, double amount, String operation){
+        Statement statement;
+        ResultSet resultSet;
+
+        try{
+            statement = this.conn.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM SavingsAccounts WHERE Owner='"+pAddress+"';");
+            double newBalance;
+            if(operation.equals("ADD")){
+                newBalance = resultSet.getDouble("Balance")+amount;
+                statement.executeUpdate("UPDATE SavingsAccounts SET Balance='"+newBalance+"' WHERE Owner ='"+pAddress+"';");
+
+            }
+            else{
+                if(resultSet.getDouble("Balance")>= amount){
+                    newBalance = resultSet.getDouble("Balance")-amount;
+                    statement.executeUpdate("UPDATE SavingsAccounts SET Balance='"+newBalance+"' WHERE Owner ='"+pAddress+"';");
+                }
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void  CreateNewTransaction(String sender, String receiver, double amount, String message){
+        Statement statement;
+        ResultSet resultSet;
+
+        try{
+            statement = this.conn.createStatement();
+            LocalDate date= LocalDate.now();
+            statement.executeUpdate("INSERT INTO Transactions(Sender,Receiver,Amount,Date, Message) VALUES ('"+sender+"', '"+receiver+"', '"+amount+"', '"+date+"', '"+message+"');");
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 
 
     //Utility Methods

@@ -9,6 +9,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -34,6 +36,7 @@ public class DashboardController implements Initializable {
         initTransactionsList();
         transaction_listview.setItems(Model.getInstance().getLatestTransactions());
         transaction_listview.setCellFactory(e->new TransactionCellFactory());
+        send_money_btn.setOnAction(e->onSendMoney());
     }
 
     private void bindData(){
@@ -52,4 +55,29 @@ public class DashboardController implements Initializable {
             Model.getInstance().setLatestTransactions();
         }
     }
+
+    private void onSendMoney(){
+        String receiver = payee_fld.getText();
+        double amount = Double.parseDouble(amount_fld.getText());
+        String message = message_fld.getText();
+        String sender = Model.getInstance().getClient().payeeAdressProperty().get();
+        ResultSet resultSet = Model.getInstance().getDatabaseDriver().searchClient(receiver);
+
+        try{
+            if(resultSet.isBeforeFirst()){
+                Model.getInstance().getDatabaseDriver().updateBalance(receiver, amount, "ADD");
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        Model.getInstance().getDatabaseDriver().updateBalance(sender, amount, "SUB");
+        Model.getInstance().getClient().savingsAccountProperty().get().setBalance(Model.getInstance().getDatabaseDriver().getSavingsAccountBalance(sender));
+        Model.getInstance().getDatabaseDriver().CreateNewTransaction(sender,receiver,amount,message);
+        payee_fld.setText("");
+        message_fld.setText("");
+        amount_fld.setText("");
+    }
+
 }

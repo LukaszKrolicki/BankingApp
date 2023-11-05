@@ -1,6 +1,7 @@
 package com.example.demo.Controllers.Client;
 
 import com.example.demo.Models.Model;
+import com.example.demo.Views.TransactionCellFactory;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -30,6 +31,9 @@ public class DashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         bindData();
+        initTransactionsList();
+        transaction_listview.setItems(Model.getInstance().getLatestTransactions());
+        transaction_listview.setCellFactory(e->new TransactionCellFactory());
     }
 
     private void bindData(){
@@ -41,5 +45,11 @@ public class DashboardController implements Initializable {
         savings_acc_num.textProperty().bind(Model.getInstance().getClient().savingsAccountProperty().get().accountNumberProperty());
 
 
+    }
+
+    private void initTransactionsList(){
+        if(Model.getInstance().getLatestTransactions().isEmpty()){
+            Model.getInstance().setLatestTransactions();
+        }
     }
 }

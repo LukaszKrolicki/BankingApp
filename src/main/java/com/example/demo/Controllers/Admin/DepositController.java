@@ -37,7 +37,7 @@ public class DepositController implements Initializable {
         double amount = Double.parseDouble(amount_fld.getText());
         double newBalance = amount + client.savingsAccountProperty().get().balanceProperty().get();
         if(amount_fld.getText()!=null){
-            Model.getInstance().getDatabaseDriver().depositSavings(client.payeeAdressProperty(), newBalance);
+            Model.getInstance().getDatabaseDriver().depositSavings(client.payeeAdressProperty().toString(), newBalance);
         }
         emptyFileds();
     }
